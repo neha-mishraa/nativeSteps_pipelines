@@ -2,8 +2,8 @@ resources:
   - name: docker_build_repo
     type: GitRepo
     configuration:
-      path: deepikasl/dockerbuild
-      gitProvider: deepikaGithub
+      path: Varsha-Arun/nativeSteps_pipelines
+      gitProvider: varshaGithub
       
   - name: docker_build_info
     type: BuildInfo
@@ -45,7 +45,7 @@ pipelines:
           #nodePool: aws-demo-pool
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: '34.66.107.45:8081/docker-stage-local/deepika'
+          dockerImageName: '34.66.107.45:8081/docker-stage-local/thanospipeline'
           dockerImageTag: myImg_$pipeline_name.$run_number
           integrations:
             - name: art
