@@ -12,29 +12,29 @@ resources:
       buildNumber: 1
       buildName: dockertest  
       
-  - name: unsigned_release_bundle_docker_build
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: dist
-      name: test-docker-local
-      version: v1.0
+#   - name: unsigned_release_bundle_docker_build
+#     type: ReleaseBundle
+#     configuration:
+#       sourceDistribution: dist
+#       name: test-docker-local
+#       version: v1.0
       
-  - name: signed_release_bundle_docker_build
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: dist
-      name: test-docker-local
-      version: v1.0
+#   - name: signed_release_bundle_docker_build
+#     type: ReleaseBundle
+#     configuration:
+#       sourceDistribution: dist
+#       name: test-docker-local
+#       version: v1.0
 
-  - name: distribution_rule_docker_build
-    type: DistributionRule
-    configuration:
-      sourceDistribution: dist
-      cityName: "*"
-      serviceName: "*"
-      siteName: "*"
-      countryCodes:
-        - IN
+#   - name: distribution_rule_docker_build
+#     type: DistributionRule
+#     configuration:
+#       sourceDistribution: dist
+#       cityName: "*"
+#       serviceName: "*"
+#       siteName: "*"
+#       countryCodes:
+#         - IN
 
 pipelines: 
   - name: demo_docker
@@ -45,7 +45,7 @@ pipelines:
           #nodePool: aws-demo-pool
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: '34.66.107.45:8081/docker-stage-local/thanospipeline'
+          dockerImageName: 'http://c8-install.jfrog-pipelines.com/docker-stage-local/thanospipeline'
           dockerImageTag: myImg_$pipeline_name.$run_number
           integrations:
             - name: art
@@ -71,42 +71,42 @@ pipelines:
           outputResources:
             - name: docker_build_info  
             
-      - name: bundle_docker
-        type: CreateReleaseBundle
-        configuration:
-          #nodePool: aws-demo-pool
-          releaseBundleName: test-docker-local
-          releaseBundleVersion: v0.1.$run_number
-          dryRun: false
-          sign: false
-          description: "docker build"
-          inputResources:
-            - name: docker_build_info
-          outputResources:
-            - name: unsigned_release_bundle_docker_build
-          releaseNotes:
-            syntax: markdown
-            content: |
-              ## This is a demo to test Docker Build 
-                * Build -> Push -> Publish -> Bundle -> Sign -> Distribute
-                * Points       
+#       - name: bundle_docker
+#         type: CreateReleaseBundle
+#         configuration:
+#           #nodePool: aws-demo-pool
+#           releaseBundleName: test-docker-local
+#           releaseBundleVersion: v0.1.$run_number
+#           dryRun: false
+#           sign: false
+#           description: "docker build"
+#           inputResources:
+#             - name: docker_build_info
+#           outputResources:
+#             - name: unsigned_release_bundle_docker_build
+#           releaseNotes:
+#             syntax: markdown
+#             content: |
+#               ## This is a demo to test Docker Build 
+#                 * Build -> Push -> Publish -> Bundle -> Sign -> Distribute
+#                 * Points       
                  
-      - name: sign_release_bundle_docker
-        type: SignReleaseBundle
-        configuration:
-         # nodePool: aws-demo-pool
-          inputResources:
-            - name: unsigned_release_bundle_docker_build
-          outputResources:
-            - name: signed_release_bundle_docker_build
+#       - name: sign_release_bundle_docker
+#         type: SignReleaseBundle
+#         configuration:
+#          # nodePool: aws-demo-pool
+#           inputResources:
+#             - name: unsigned_release_bundle_docker_build
+#           outputResources:
+#             - name: signed_release_bundle_docker_build
             
-      - name: dockerDistribute
-        type: DistributeReleaseBundle
-        configuration:
-        #  nodePool: aws-demo-pool
-          dryRun: false
-          inputResources:
-            - name: signed_release_bundle_docker_build
-            - name: distribution_rule_docker_build
-          integrations: 
-            - name: dist  
+#       - name: dockerDistribute
+#         type: DistributeReleaseBundle
+#         configuration:
+#         #  nodePool: aws-demo-pool
+#           dryRun: false
+#           inputResources:
+#             - name: signed_release_bundle_docker_build
+#             - name: distribution_rule_docker_build
+#           integrations: 
+#             - name: dist  
