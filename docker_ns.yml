@@ -45,7 +45,7 @@ pipelines:
           #nodePool: aws-demo-pool
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: 'http://c8-install.jfrog-pipelines.com/docker-stage-local/thanospipeline'
+          dockerImageName: 'https://varshathanos.jfrogdev.org/docker-stage-local/thanospipeline'
           dockerImageTag: myImg_$pipeline_name.$run_number
           integrations:
             - name: art
