@@ -1,0 +1,31 @@
+resources:
+  - name: t_r_gitRepo
+    type: GitRepo
+    configuration:
+      path: Varsha-Arun/nativeSteps_pipelines
+      gitProvider: varshaGithub
+
+pipelines: 
+  - name: p_thanos
+    steps:
+      - name: t_s_bash
+        type: Bash
+        configuration:
+          integrations:
+            - name: art
+        execution:
+          onStart:
+            - echo "test1"
+            
+      - name: t_s_bash2
+        type: Bash
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: t_s_bash
+          inputResources:
+            - name: t_r_gitRepo
+        execution:
+          onStart:
+            - echo "test2"
