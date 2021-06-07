@@ -4,6 +4,8 @@ resources:
     configuration:
       path: Varsha-Arun/nativeSteps_pipelines
       gitProvider: varshaGithub
+      branches:
+        include: docker
       
   - name: docker_build_info
     type: BuildInfo
