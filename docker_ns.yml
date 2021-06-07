@@ -46,7 +46,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: 'https://thanosvarsha.jfrogdev.org/docker-stage-local/thanospipeline'
-          dockerImageTag: mytag #myImg_$pipeline_name.$run_number
+          dockerImageTag: myImg_$pipeline_name:$run_number
           integrations:
             - name: art
           inputResources:
