@@ -44,12 +44,10 @@ pipelines:
         configuration:
           environmentVariables:
 #             dockerImageName: avinci-docker-local.jfrog.io/app
-            dockerImageName: https://thanosvarsha.jfrogdev.org/test-docker-local/bashbuild
+            dockerImageName: https://thanosvarsha.jfrogdev.org/docker-stage-local/bashbuild
             dockerImageTag: ${run_number}
           integrations:
             - name: art
-          inputSteps:
-            - name: docker_build
         execution:
           onStart:
 #             - rm -rf $run_dir/workspace/jfrog
@@ -60,10 +58,8 @@ pipelines:
 #             - add_run_variables ${step_name}_buildName=${pipeline_name}
             - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_art_url} .
 #             - jfrog rt bce $pipeline_name $run_number
-            - jfrog rt docker-push $dockerImageName:$dockerImageTag test-docker-local --build-name=$pipeline_name --build-number=$run_number
-            
-            
-            
+            - jfrog rt docker-push $dockerImageName:$dockerImageTag docker-stage-local --build-name=$pipeline_name --build-number=$run_number
+ 
       - name: docker_build
         type: DockerBuild
         configuration:
@@ -76,6 +72,8 @@ pipelines:
             - name: art
           inputResources:
             - name: docker_build_repo    
+          inputSteps:
+            - name: t_bash_build
    
       - name: docker_push
         type: DockerPush
