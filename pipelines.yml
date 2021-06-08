@@ -1,0 +1,14 @@
+pipelines: 
+  - name: test
+    steps:      
+      
+      - name: docker_build1
+        type: DockerBuild
+        configuration:
+          #nodePool: aws-demo-pool
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: 'https://thanosvarsha.jfrogdev.org/docker-stage-local/thanospipeline'
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art
