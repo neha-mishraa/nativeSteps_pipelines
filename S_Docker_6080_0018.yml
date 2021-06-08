@@ -1,0 +1,46 @@
+resources:
+  - name: R_GR_6080_0018
+    type: GitRepo
+    configuration:
+      path: Varsha-Arun/nativeSteps_pipelines
+      gitProvider: varshaGithub
+      branches:
+        include: 6080
+
+pipelines: 
+  - name: P_Docker_6080_0018
+    steps:
+    
+      - name: S_DockerBuild_6080_0018
+        type: DockerBuild
+        configuration:
+          nodePool: u16dynamic
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: 'https://thanosvarsha.jfrogdev.org/docker-stage-local/thanospipeline'
+          dockerImageTag: ${run_number}
+          integrations:
+            - name: art_v
+          inputResources:
+            - name: R_GR_6080_0018
+          
+             
+      - name: S_DockerPush_6080_0018
+        type: DockerPush
+        configuration:
+          nodePool: u16dynamic
+          targetRepository: test-docker-local
+          integrations:
+            - name: art_v
+          inputSteps:
+            - name: S_DockerBuild_6080_0018
+        execution:
+          onSuccess:
+            - echo "executing success"
+          onExecute:
+            - docker pull busybox:latest
+            - echo "executing onExecute"
+          onComplete:
+            - echo "executing complete"
+          onFailure:
+            - echo "executing failure"
