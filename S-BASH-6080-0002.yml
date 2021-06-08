@@ -1,0 +1,22 @@
+pipelines: 
+  - name: P_BASH_6080_0002
+    steps:
+      - name: S_BASH_6080_0002
+        type: Bash
+        configuration:
+          nodePool: k8sNodePool 
+          runtime:         
+            type: image
+            image:
+              custom:
+                name: busybox
+                tag: latest
+#                 registry: docker # optional integration for private registry
+#                 sourceRepository: docker # required if registry is artifactory
+#                 region: <string> # required if registry is AWS
+                options: --no-trunc	 # optional
+#                 autoPull: <boolean> # optional, defaults to true; pull
+
+        execution:
+          onStart:
+            - echo "executing test"
