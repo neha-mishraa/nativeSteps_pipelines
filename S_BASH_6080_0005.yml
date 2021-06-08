@@ -1,0 +1,13 @@
+pipelines: 
+  - name: P_BASH_6080_0005
+    steps:
+      - name: S_BASH_6080_0005
+        type: Bash
+        configuration:
+          nodePool: k8sNodePool 
+
+        execution:
+          onStart:
+            - echo "executing test"
+          onExecute:
+            - docker pull busybox:latest
