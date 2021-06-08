@@ -1,0 +1,13 @@
+pipelines: 
+  - name: P_BASH_6080_0001
+    steps:
+      - name: S_BASH_6080_0001
+        type: Bash
+        configuration:
+          nodePool: k8sNodePool # optional
+          runtime:       
+            type: host
+
+        execution:
+          onStart:
+            - echo "executing test"
