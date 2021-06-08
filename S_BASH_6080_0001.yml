@@ -4,7 +4,7 @@ pipelines:
       - name: S_BASH_6080_0001
         type: Bash
         configuration:
-          nodePool: k8sNodePool # optional
+#           nodePool: k8sNodePool # optional
           runtime:       
             type: host
 
