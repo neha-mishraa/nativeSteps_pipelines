@@ -1,0 +1,17 @@
+pipelines: 
+  - name: P_BASH_6080_0003
+    steps:
+      - name: S_BASH_6080_0003
+        type: Bash
+        configuration:
+          runtime:         
+            type: image
+            image:
+              custom:
+                name: busybox
+                tag: latest
+                options: --no-trunc	
+
+        execution:
+          onStart:
+            - echo "executing test"
