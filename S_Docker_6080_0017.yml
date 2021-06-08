@@ -1,0 +1,22 @@
+pipelines: 
+  - name: P_Docker_6080_0017
+    steps:
+    
+      - name: S_Docker_6080_0017
+        type: DockerBuild
+        configuration:
+          nodePool: u16dynamic
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: 'https://thanosvarsha.jfrogdev.org/docker-stage-local/thanospipeline'
+          dockerImageTag: ${run_number}
+        execution:
+          onSuccess:
+            - echo "executing success"
+          onExecute:
+            - docker pull busybox:latest
+            - echo "executing onExecute"
+          onComplete:
+            - echo "executing complete"
+          onFailure:
+            - echo "executing failure"
