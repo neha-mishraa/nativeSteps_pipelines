@@ -1,0 +1,14 @@
+  
+pipelines: 
+  - name: P_BASH_6080_0006
+    steps:
+      - name: S_BASH_6080_0006
+        type: Bash
+        configuration:
+          nodePool: u16dynamic
+
+        execution:
+          onStart:
+            - echo "executing test"
+          onExecute:
+            - docker pull busybox:latest
